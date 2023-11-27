@@ -22,7 +22,7 @@ namespace WebCompumundo.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Categoria != null ? 
-                          View(await _context.Categoria.ToListAsync()) :
+                          View(await _context.Categoria.Where(x => x.Estado != -1).ToListAsync()) :
                           Problem("Entity set 'FinalComputadoras2Context.Categoria'  is null.");
         }
 
@@ -55,10 +55,13 @@ namespace WebCompumundo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion,UsuarioRegistro,FechaRegistro,Estado")] Categorium categorium)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Descripcion")] Categorium categorium)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(categorium.Nombre) || string.IsNullOrEmpty(categorium.Descripcion))
             {
+                categorium.UsuarioRegistro = "SIS457";
+                categorium.FechaRegistro = DateTime.Now;
+                categorium.Estado = 1;
                 _context.Add(categorium);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +97,7 @@ namespace WebCompumundo.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(categorium.Nombre) || string.IsNullOrEmpty(categorium.Descripcion))
             {
                 try
                 {
@@ -147,7 +150,8 @@ namespace WebCompumundo.Controllers
             var categorium = await _context.Categoria.FindAsync(id);
             if (categorium != null)
             {
-                _context.Categoria.Remove(categorium);
+                categorium.Estado = -1;
+                //_context.Categoria.Remove(categorium);
             }
             
             await _context.SaveChangesAsync();

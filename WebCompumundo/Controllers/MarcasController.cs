@@ -22,7 +22,7 @@ namespace WebCompumundo.Controllers
         public async Task<IActionResult> Index()
         {
               return _context.Marcas != null ? 
-                          View(await _context.Marcas.ToListAsync()) :
+                          View(await _context.Marcas.Where(x=>x.Estado != -1).ToListAsync()) :
                           Problem("Entity set 'FinalComputadoras2Context.Marcas'  is null.");
         }
 
@@ -55,10 +55,13 @@ namespace WebCompumundo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,UsuarioRegistro,FechaRegistro,Estado")] Marca marca)
+        public async Task<IActionResult> Create([Bind("Id,Nombre")] Marca marca)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(marca.Nombre))
             {
+                marca.UsuarioRegistro = "SIS457";
+                marca.FechaRegistro = DateTime.Now;
+                marca.Estado = 1;
                 _context.Add(marca);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +97,7 @@ namespace WebCompumundo.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(marca.Nombre))
             {
                 try
                 {
@@ -147,7 +150,8 @@ namespace WebCompumundo.Controllers
             var marca = await _context.Marcas.FindAsync(id);
             if (marca != null)
             {
-                _context.Marcas.Remove(marca);
+                marca.Estado = -1;
+                //_context.Marcas.Remove(marca);
             }
             
             await _context.SaveChangesAsync();

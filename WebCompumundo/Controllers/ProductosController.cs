@@ -22,7 +22,7 @@ namespace WebCompumundo.Controllers
         public async Task<IActionResult> Index()
         {
             var finalComputadoras2Context = _context.Productos.Include(p => p.IdCategoriaNavigation).Include(p => p.IdMarcaNavigation);
-            return View(await finalComputadoras2Context.ToListAsync());
+            return View(await finalComputadoras2Context.Where(x => x.Estado != -1).ToListAsync());
         }
 
         // GET: Productos/Details/5
@@ -58,10 +58,13 @@ namespace WebCompumundo.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdMarca,Descripcion,UrlImagen,PrecioVenta,Stock,UsuarioRegistro,FechaRegistro,Estado")] Producto producto)
+        public async Task<IActionResult> Create([Bind("Id,IdCategoria,IdMarca,Descripcion,UrlImagen,PrecioVenta,Stock")] Producto producto)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(producto.Descripcion))
             {
+                producto.UsuarioRegistro = "SIS457";
+                producto.FechaRegistro = DateTime.Now;
+                producto.Estado = 1;
                 _context.Add(producto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,7 +104,7 @@ namespace WebCompumundo.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(producto.Descripcion))
             {
                 try
                 {
@@ -158,7 +161,8 @@ namespace WebCompumundo.Controllers
             var producto = await _context.Productos.FindAsync(id);
             if (producto != null)
             {
-                _context.Productos.Remove(producto);
+                producto.Estado = -1;
+                //_context.Productos.Remove(producto);
             }
             
             await _context.SaveChangesAsync();

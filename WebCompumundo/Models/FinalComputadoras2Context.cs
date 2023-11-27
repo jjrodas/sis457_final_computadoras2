@@ -331,7 +331,7 @@ public partial class FinalComputadoras2Context : DbContext
 
         modelBuilder.Entity<VentaDetalle>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__VentaDet__3213E83F9183CF90");
+            entity.HasKey(e => e.Id).HasName("PK__VentaDet__3213E83F7DDB3D6F");
 
             entity.ToTable("VentaDetalle");
 
@@ -349,9 +349,6 @@ public partial class FinalComputadoras2Context : DbContext
                 .HasColumnName("fechaVenta");
             entity.Property(e => e.IdProducto).HasColumnName("idProducto");
             entity.Property(e => e.IdVenta).HasColumnName("idVenta");
-            entity.Property(e => e.PrecioUnitario)
-                .HasColumnType("decimal(18, 0)")
-                .HasColumnName("precioUnitario");
             entity.Property(e => e.Total)
                 .HasColumnType("decimal(18, 0)")
                 .HasColumnName("total");

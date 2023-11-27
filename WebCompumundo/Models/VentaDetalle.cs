@@ -13,8 +13,6 @@ public partial class VentaDetalle
 
     public int Cantidad { get; set; }
 
-    public decimal PrecioUnitario { get; set; }
-
     public decimal Total { get; set; }
 
     public DateTime FechaVenta { get; set; }

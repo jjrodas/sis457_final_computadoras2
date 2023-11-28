@@ -5,66 +5,48 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Eliminar producto</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>¿Está seguro de que desea eliminar el producto?</h3>
 <div>
     <h4>Producto</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Descripcion)
-        </dt>
+        <dt class = "col-sm-2">Descipción</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Descripcion)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UrlImagen)
-        </dt>
+        <dt class = "col-sm-2">Url de la Imagen</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UrlImagen)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioVenta)
-        </dt>
+        <dt class = "col-sm-2">Precio de Venta</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PrecioVenta)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Stock)
-        </dt>
+        <dt class = "col-sm-2">Stock</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Stock)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UsuarioRegistro)
-        </dt>
+        <dt class = "col-sm-2">Usuario Registro</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UsuarioRegistro)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaRegistro)
-        </dt>
+        <dt class = "col-sm-2">Fecha de Registro</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaRegistro)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
+        <dt class = "col-sm-2">Estado</dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Estado)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdCategoriaNavigation)
-        </dt>
+        <dt class = "col-sm-2">Nombre de a Categoría</dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdCategoriaNavigation.Id)
+            @Model.IdCategoriaNavigation.Nombre
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdMarcaNavigation)
-        </dt>
+        <dt class = "col-sm-2">Nombre de la Marca</dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdMarcaNavigation.Id)
+            @Model.IdMarcaNavigation.Nombre
         </dd>
     </dl>
     

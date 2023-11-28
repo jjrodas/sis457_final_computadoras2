@@ -48,8 +48,8 @@ namespace WebCompumundo.Controllers
         // GET: Productos/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Id");
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "Id", "Id");
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Nombre");
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "Id", "Nombre");
             return View();
         }
 
@@ -87,8 +87,8 @@ namespace WebCompumundo.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Id", producto.IdCategoria);
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "Id", "Id", producto.IdMarca);
+            ViewData["IdCategoria"] = new SelectList(_context.Categoria, "Id", "Nombre", producto.IdCategoria);
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "Id", "Nombre", producto.IdMarca);
             return View(producto);
         }
 
